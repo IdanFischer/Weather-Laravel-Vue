@@ -11,7 +11,7 @@ The backend API is protected by **custom middleware** that requires an `X-API-KE
 ### 1. Clone the Repo
 ```bash
 git clone https://github.com/IdanFischer/Weather-Laravel-Vue.git
-cd laravel-vue-weather-app
+cd weather-app-laravel
 ```
 ### 2. Add Environment Variables
 Copy the example environment files and update them with your own values.
