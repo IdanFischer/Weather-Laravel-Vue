@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  laravel:
+    build:
+      context: ./backend-laravel
+      dockerfile: Dockerfile
+    container_name: laravel
+    restart: unless-stopped
+    working_dir: /var/www
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
+    volumes:
+      - ./backend-laravel:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    command: sh -c "php artisan serve --host=0.0.0.0 --port=8000"
+    develop:
+      watch:
+        - path: ./backend-laravel
+          target: /var/www
+          action: sync
+
+  vue:
+    build:
+      context: ./vite-project
+      dockerfile: Dockerfile
+    container_name: vue
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./vite-project:/app
+    command: sh -c "npm install && npm run dev -- --host"
+    develop:
+      watch:
+        - path: ./vite-project
+          target: /app
+          action: sync
+
+volumes:
+  mysql_data:
