@@ -21,7 +21,7 @@ cp vite-project/.env.example vite-project/.env
 ```
 The only thing that should be changed in the `.env` file in the `backend-laravel` folder is the `API_KEY` and `OPEN_WEATHER_API_KEY` variables. For the `API_KEY`, you can use any random string. For the `OPEN_WEATHER_API_KEY`, you need to sign up for a free account on [OpenWeather](https://openweathermap.org/api) and get your API key.
 
-For the `.env` file in the `vite-project` folder, you need to set the `VITE_API_URL` variable to the URL of your Laravel backend. If you're using Docker, it will be `http://localhost:8000/api`. The `VITE_API_KEY` variable should be the same as the `API_KEY` variable in the Laravel backend `.env` file.
+For the `.env` file in the `vite-project` folder, you need to set the `VITE_API_URL` variable to the URL of your Laravel backend. It is already set to the default of: `http://localhost:8000/api`.
 
 ### 3. To build the frontend project
 ```bash
